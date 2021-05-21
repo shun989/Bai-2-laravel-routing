@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/{timezone}', function ($timezone = null){
+   if (!empty($timezone)) {
+       $time = new DateTime(date('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+       $time->setTimezone(new DateTimeZone(str_replace('-','/', $timezone)));
+
+       echo 'Múi giờ bạn chọn ' . $timezone . ' hiện tại đang là: ' . $time->format('d-m-Y H:i:s');
+   }
+   return view('index');
 });
